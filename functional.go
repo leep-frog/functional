@@ -32,9 +32,9 @@ func CountFunc[T any](ts []T, f func(T) bool) int {
 	})
 }
 
-func Count2D[T comparable](tts [][]T, k T) int {
-	return Reduce(0, tts, func(b int, ts []T) int {
-		return b + Count(ts, k)
+func Flat[T comparable](tts [][]T) []T {
+	return Reduce(nil, tts, func(a, b []T) []T {
+		return append(a, b...)
 	})
 }
 
