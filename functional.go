@@ -1,6 +1,8 @@
 // functional implements functional programming utilities.
 package functional
 
+import "golang.org/x/exp/slices"
+
 // If returns t if v is true; f otherwise
 func If[T any](v bool, t, f T) T {
 	if v {
@@ -91,4 +93,13 @@ func Reduce[B, T any](base B, items []T, f func(B, T) B) B {
 		b = f(b, t)
 	}
 	return b
+}
+
+func SortFunc[T any](items []T, lessFunc func(T, T) bool) {
+	slices.SortFunc(items, func(a, b T) int {
+		if lessFunc(a, b) {
+			return -1
+		}
+		return 1
+	})
 }
