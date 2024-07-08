@@ -34,6 +34,16 @@ func CountFunc[T any](ts []T, f func(T) bool) int {
 	})
 }
 
+func Count2D[T comparable](tss [][]T, k T) int {
+	return Count2DFunc(tss, func(t T) bool { return t == k })
+}
+
+func Count2DFunc[T any](tss [][]T, f func(T) bool) int {
+	return Reduce(0, tss, func(b int, ts []T) int {
+		return b + CountFunc(ts, f)
+	})
+}
+
 func Flat[T comparable](tts [][]T) []T {
 	return Reduce(nil, tts, func(a, b []T) []T {
 		return append(a, b...)
